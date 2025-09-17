@@ -3,8 +3,12 @@ set -e
 
 # ensure rclone config exists
 if [ ! -f ~/.config/rclone/rclone.conf ]; then
-  echo "rclone config not found!"
-  exit 1
+  if [ -z "$RCLONE_CONFIG_MYGDRIVE_CLIENT_ID" ] || [ -z "$RCLONE_CONFIG_MYGDRIVE_CLIENT_SECRET" ] || [ -z "$RCLONE_CONFIG_MYGDRIVE_TOKEN" ]; then
+    echo "Error: neither rclone.conf nor required environment vars (CLIENT_ID, CLIENT_SECRET, TOKEN) provided"
+    exit 1
+  else
+    echo "Using environment-variable based rclone remote configuration"
+  fi
 fi
 
 # mount Google Drive

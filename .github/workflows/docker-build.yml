@@ -1,9 +1,15 @@
 name: Build and push Docker image
 on:
   push:
-    branches: [ main ]
+    branches: [ master ]
 
   workflow_dispatch:
+
+env:
+  RCLONE_CONFIG_MYGDRIVE_CLIENT_ID: ${{ secrets.RCLONE_CLIENT_ID }}
+  RCLONE_CONFIG_MYGDRIVE_CLIENT_SECRET: ${{ secrets.RCLONE_CLIENT_SECRET }}
+  RCLONE_CONFIG_MYGDRIVE_TOKEN: ${{ secrets.RCLONE_TOKEN }}
+  RCLONE_CONFIG_MYGDRIVE_SCOPE: drive
 
 permissions:
   contents: read
